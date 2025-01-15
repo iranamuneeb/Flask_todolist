@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Todo App</h1>
+        
+        <form action="/add" method="POST">
+            <input type="text" name="task" placeholder="Enter a task" required>
+            <select name="priority" required>
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+            </select>
+            <input type="date" name="date" required>
+            <button type="submit">Add Task</button>
+        </form>
+
+        <h2>Todo List</h2>
+        <ul>
+            {% for todo in todos %}
+            <li>
+                <span>{{ todo.task }} ({{ todo.priority }}) - {{ todo.date }}</span>
+                <a href="/delete/{{ todo._id }}">Delete</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+</body>
+</html>
